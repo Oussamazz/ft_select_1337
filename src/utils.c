@@ -6,21 +6,33 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 22:34:12 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/02/07 22:33:24 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/02/08 22:35:24 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-int			ft_putchar_term(int c)
+
+static t_type		check_permission(char *path)
 {
-	return (write(2, &c, 1));
+	struct stat sb;
+
+	if (stat(path, &sb) == -1)
+		return (UNK_FILE);
+	if (S_ISDIR(sb.st_mode))
+		return (DIR_FILE);
+	else if (sb.st_mode & S_IXUSR)
+		return (O_FILE);
+	return (UNK_FILE);
 }
 
 t_type		get_type(char *data)
 {
 	char	*name;
+	t_type	ret;
 
+	if ((ret = check_permission(data)) != UNK_FILE)
+		return (ret);
 	name = ft_strrchr(data, '/') ? ft_strrchr(data, '/') + 1 : data;
 	if (ft_strlen(name) < 2)
 		return (UNK_FILE);
@@ -40,7 +52,7 @@ t_type		get_type(char *data)
 	return (UNK_FILE);
 }
 
-/*
+
 static t_direction    direction_(long key)
 {
 	t_direction dir;
@@ -54,20 +66,24 @@ static t_direction    direction_(long key)
 		dir = LEFT_dir;
 	if (key == RIGHT_KEY)
 		dir = RIGHT_dir;
+	return (dir);
 }
 
 void	continue_(t_direction dir)
 {
+	t_args *on;
+
+	on = *g_HEAD.active_arg;
 	if (dir == LEFT_dir)
-		g_HEAD.args = g_HEAD.args->prev;
-	else if (dir == RIGHT_dir)
-		g_HEAD.args = g_HEAD.args->next;
+		g_HEAD.active_arg = &(on->prev);
+	if (dir == RIGHT_dir)
+		g_HEAD.active_arg = &(on->next);
 	else if (dir == UP_dir)
-		up_();
-	else if (dir == DOWN_KEY)
-		down_();
+		up_(g_HEAD.active_arg);
+	else if (dir == DOWN_dir)
+		down_(g_HEAD.active_arg);
 	return ;
-}*/
+}
 
 void    ft_select_loop(void)
 {
@@ -79,11 +95,11 @@ void    ft_select_loop(void)
 		key = 0;
 		read(2, &key, sizeof(key));
 		if (key == ENTER_KEY)
-			return ;   //breaking;
+			return ;
+		else if (key == SPACE_KEY)
+			selecting();    //breaking;
 		/*else if (key == ESC_KEY)
 			signal_kill(); //signals handeling
-		else if (key == SPACE_KEY)
-			select_item(); //select one item;
 		else if (key == STAR_KEY || key == DLT_ALL_KEY)
 			select_all_args(key); // select all or unselect all;
 		else if (key == BSP_KEY || key == DEL_KEY)
@@ -91,6 +107,6 @@ void    ft_select_loop(void)
 		else if (key == OPEN_KEY || key == BACK_KEY)
 			browse(key); // open and back ;
 			*/
-			//continue_(direction_(key)); // Arrows;
+		continue_(direction_(key)); // Arrows;
 	}
 }

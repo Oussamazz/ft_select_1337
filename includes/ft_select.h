@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 09:25:06 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/02/07 23:34:21 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/02/09 21:02:53 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,19 @@
 # define NO_ZERO(X) ((X) == 0 ? (X) = 1 : (X))
 
 # define T_C_COLOR				"\033[35m"
-# define DIR_COLOR				"\033[1;36m"
-# define T_O_COLOR				"\033[0;31m"
-# define T_H_COLOR				"\033[34m"
+# define T_DIR_COLOR			"\033[1;36m"
+# define T_O_COLOR				"\033[32m"
+# define T_H_COLOR				"\033[35m"
 # define T_MAKEFILE_COLOR		"\033[33m"
 # define T_DOT_COLOR			"\033[32m"
-# define T_A_COLOR				"\033[31m"
+# define T_A_COLOR				"\033[32m"
 # define DEFAULT_COLOR			"\033[0m"
 # define REVERSE_VIDEO_COLOR	"\033[7m"
 # define RESET_COLOR			"[0m"
 # define UNDERLINED				"\033[4m"
 
+# define Y_KEY					121
+# define N_KEY					110
 # define ENTER_KEY				10
 # define ESC_KEY				27
 # define SPACE_KEY				32
@@ -62,6 +64,7 @@ typedef enum		e_type
 	A_FILE,
 	MAKE_FILE,
 	DOT_FILE,
+	DIR_FILE,
 	UNK_FILE,
 }					t_type;
 
@@ -76,6 +79,7 @@ typedef enum		e_direction
 
 typedef	struct		s_args
 {
+	int				index;
 	char			*value;
 	bool			is_on;
 	t_type			type;
@@ -111,6 +115,13 @@ void	ft_push(t_args *HEAD, char *data);
 void	ft_show(void);
 void    ft_select_loop(void);
 int    ft_putchar_term(int c);
+
+/*
+**Cursor
+*/
+void	selecting(void);
+void    up_(t_args **selected);
+void    down_(t_args **selected);
 /*
 ** Error Functions
 */
@@ -128,7 +139,7 @@ t_type	get_type(char *data);
 /*
 **reset terminal function
 */
-void    reset_to_default_and_free(void);
+void    reset_terminal(void);
 
 /*
 **Counting function

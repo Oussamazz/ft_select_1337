@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 21:24:00 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/02/06 18:33:29 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/02/09 19:22:30 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	error(char *error_type)
 
 void	error_usage(void)
 {
-	ft_putendl_fd("Usage ./ft_select --[Real_MODE] [arg1 arg2...]", 2);
+	ft_putendl_fd("Usage ./ft_select -[R] [arg1 arg2...]", 2);
 	return ;
 }
 

@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 13:28:25 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/02/07 23:47:12 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/02/08 17:17:24 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ int				main(int ac, char **av, char **env)
 	init_terminal();
 	get_args(av[1][0] == '-' ? av = av + 2 : av + 1);
 	ft_select_loop();
-	reset_to_default_and_free();
+	reset_terminal();
+	//free_all();
+	//close(g_HEAD.glb_fd);
 	return (0);
 }
