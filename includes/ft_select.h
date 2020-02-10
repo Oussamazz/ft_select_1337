@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 09:25:06 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/02/10 08:16:08 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/02/10 21:50:34 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,11 @@
 # define INTENSTY				"\033[0;100m"
 # define UNDERLINED				"\033[4m"
 
-# define Y_KEY					121
-# define N_KEY					110
 # define ENTER_KEY				10
 # define ESC_KEY				27
 # define SPACE_KEY				32
-# define OPEN_KEY				5
-# define BACK_KEY				1
+# define OPEN_KEY				111
+# define BACK_KEY				98
 # define BSP_KEY				127
 # define DEL_KEY				2117294875
 # define LEFT_KEY				4479771

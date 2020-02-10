@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 21:16:37 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/02/10 08:30:35 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/02/11 00:34:13 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ static void		print_list(t_args *head)
 			}
 			if (head->is_on)
 				ft_putstr_fd(REVERSE_VIDEO_COLOR, g_HEAD.glb_fd);
-			//ft_putnbr_fd(head->index, g_HEAD.glb_fd);
 			put_value_with_color(head);
 			len  = ft_strlen(head->value);
 			while (len++ <= biggest_len_arg(g_HEAD.args))
@@ -81,15 +80,16 @@ void			ft_show(void)
 	if ((biggest_arg) > window_size(1))
 	{
 		tputs(tgetstr("cl", NULL), 1, ft_putchar_term);
-		return (ft_putendl_fd("Window size is too small! [W]", g_HEAD.glb_fd));
+		return (ft_putendl_fd("Window size is too small!", g_HEAD.glb_fd));
 	}
 	tputs(tgetstr("cl", NULL), 1, ft_putchar_term);
 	g_HEAD.colomns = count_colomns();
-	g_HEAD.rows = g_HEAD.argc / g_HEAD.colomns;
-	if (g_HEAD.rows > window_size(0))
+	if (g_HEAD.colomns != 0)
+		g_HEAD.rows = g_HEAD.argc / g_HEAD.colomns;
+	if (g_HEAD.rows > window_size(0) - 2)
 	{
 		tputs(tgetstr("cl", NULL), 1, ft_putchar_term);
-		return (ft_putendl_fd("Window size is too small! [H]", g_HEAD.glb_fd));
+		return (ft_putendl_fd("Window size is too small!", g_HEAD.glb_fd));
 	}
 	if (g_HEAD.argc % g_HEAD.colomns)
 		g_HEAD.rows++;

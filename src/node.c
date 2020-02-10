@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 23:07:22 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/02/10 07:35:08 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/02/10 22:03:48 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,7 @@ void	delete_item(void)
 		else
 			g_HEAD.args = active->next;
 	}
-	else
-		g_HEAD.active_arg = &active->next;
+	g_HEAD.active_arg = &active->next;
 	active->next->prev = active->prev;
 	active->prev->next = active->next;
 	if (g_HEAD.real_mode)

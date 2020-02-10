@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 07:53:36 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/02/10 08:15:29 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/02/11 00:42:26 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,26 +42,39 @@ char    *get_prev_dir(char *cwd)
 	char	*last_slash;
 	char	*parent;
 
-	last_slash = strrchr(cwd, '/');
-	parent = strndup(cwd, last_slash - cwd);
-	return (parent);
+    if (cwd)
+    {
+	    if (!(last_slash = strrchr(cwd, '/')))
+            return (NULL);
+        if (last_slash - cwd == 0)
+            return (ft_strdup("/"));
+	    parent = strndup(cwd, last_slash - cwd);
+	    return (parent);
+    }
+    return (NULL);
 }
 
 void    browse(int key)
 {
     int             counter;
-    DIR            *dir;
-    struct dirent *folder;
-    char    *active;
-    char    current;
-    char    path;
+    struct stat     sb;
+    DIR             *dir;
+    struct dirent   *folder;
+    char            *active;
+    char            *current;
+    char            *path;
 
     active = (*g_HEAD.active_arg)->value;
-    current = getcwd(NULL, PATH_MAX);
+    if (!(current = getcwd(NULL, PATH_MAX)))
+        return ;
     if (key == OPEN_KEY)
-        path = creat(current, active);
+        path = create_path(current, active);
     else
         path = get_prev_dir(current);
+    if (lstat(path, &sb) == -1)
+        return ;
+    if (!S_ISDIR(sb.st_mode))
+        return (ft_treestrdel(&current, &path, NULL));
     ft_strdel(&current);
     if (!(dir = opendir(path)))
 		return (free(path));
@@ -76,6 +89,8 @@ void    browse(int key)
         }
     }
     closedir(dir);
-    chdir(path);
+    ft_putstr_fd(path, g_HEAD.glb_fd);
+    if (chdir(path) == -1)
+        return ;
     ft_strdel(&path);
 }
