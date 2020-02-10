@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 21:16:37 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/02/09 23:04:01 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/02/10 05:41:56 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,16 @@ static void		print_list(t_args *head)
 		{
 			if (head == (*g_HEAD.active_arg))
 			{
+
 				if (g_HEAD.real_mode)
-					ft_putstr_fd("⪼", g_HEAD.glb_fd);
-				ft_putstr_fd(UNDERLINED, g_HEAD.glb_fd);
+					ft_putstr_fd(INTENSTY, g_HEAD.glb_fd);
+				else
+					ft_putstr_fd(UNDERLINED, g_HEAD.glb_fd);
 			}
 			if (head->is_on)
 				ft_putstr_fd(REVERSE_VIDEO_COLOR, g_HEAD.glb_fd);
-			ft_putnbr_fd(head->index, g_HEAD.glb_fd);
+			//ft_putnbr_fd(head->index, g_HEAD.glb_fd);
 			put_value_with_color(head);
-			if (head == (*g_HEAD.active_arg) && g_HEAD.real_mode)
-				ft_putstr_fd("⪻", g_HEAD.glb_fd);
 			len  = ft_strlen(head->value);
 			while (len++ <= biggest_len_arg(g_HEAD.args))
 				ft_putchar_fd(' ', g_HEAD.glb_fd);
@@ -72,13 +72,6 @@ static void		print_list(t_args *head)
 		}
 		ft_putchar_fd('\n', g_HEAD.glb_fd);
 	}
-	ft_putnbr_fd(biggest_len_arg(g_HEAD.args), g_HEAD.glb_fd);
-	ft_putstr_fd("args: ", g_HEAD.glb_fd);
-	ft_putnbr_fd(g_HEAD.argc, g_HEAD.glb_fd);
-	ft_putstr_fd("\nwidth: ", g_HEAD.glb_fd);
-	ft_putnbr_fd(count_colomns(), g_HEAD.glb_fd);
-	ft_putstr_fd("\nrows: ", g_HEAD.glb_fd);
-	ft_putnbr_fd(g_HEAD.rows, g_HEAD.glb_fd);
 }
 
 void			ft_show(void)

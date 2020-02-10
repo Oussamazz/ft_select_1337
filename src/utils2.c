@@ -6,17 +6,31 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 21:21:54 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/02/10 02:24:07 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/02/10 06:55:23 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-void	reset_terminal(void)
+void	un__select_all(int key)
 {
-	tcsetattr(g_HEAD.glb_fd, TCSANOW, &g_HEAD.old_attribute);
-	tputs(tgetstr("te", NULL), 1, ft_putchar_term);
-	tputs(tgetstr("ve", NULL), 1, ft_putchar_term);
+	int		flag;
+	t_args *curr;
+	t_args *first;
+
+	first = g_HEAD.args;
+	curr = first;
+	while (curr)
+	{
+		flag = (key == STAR_KEY ? 1 : 0);
+		curr->is_on = flag;
+		g_HEAD.selected_counter += flag;
+		if (flag == 0)
+			g_HEAD.selected_counter--;
+		if (curr->next == first)
+			break ;
+		curr = curr->next;
+	}
 }
 
 void	selecting(void)
@@ -60,9 +74,8 @@ void	up_(t_args **selected)
 			node = node->next;
 		}
 	}
-	else if (index < no_cls && (((g_HEAD.argc % no_cls) % index) == 0 ||
-		(((g_HEAD.argc % no_cls) % index) == g_HEAD.argc % no_cls)))
-		i -= 5;
+	if (index - no_cls < 0)
+		return (ft_putstr_fd("\a", 2));
 	while (++i < no_cls)
 		node = node->prev;
 	g_HEAD.active_arg = &node;

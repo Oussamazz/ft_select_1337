@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 09:25:06 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/02/09 21:02:53 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/02/10 07:20:44 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,9 @@
 # define T_A_COLOR				"\033[32m"
 # define DEFAULT_COLOR			"\033[0m"
 # define REVERSE_VIDEO_COLOR	"\033[7m"
-# define RESET_COLOR			"[0m"
+# define RESET_COLOR			"\033[0m"
+# define BOLD_COLOR				"\033[1m"
+# define INTENSTY				"\033[0;100m"
 # define UNDERLINED				"\033[4m"
 
 # define Y_KEY					121
@@ -48,7 +50,7 @@
 # define OPEN_KEY				5
 # define BACK_KEY				1
 # define BSP_KEY				127
-# define DEL_KEY				2117294875L
+# define DEL_KEY				2117294875
 # define LEFT_KEY				4479771
 # define UP_KEY					4283163
 # define RIGHT_KEY				4414235
@@ -107,7 +109,7 @@ t_select	g_HEAD;
 /*
 ** DLL functions
 */
-void	ft_push(t_args *HEAD, char *data);
+void	ft_push_ddl(char *value, int index);
 
 /*
 ** Printing Functions
@@ -119,6 +121,7 @@ int    ft_putchar_term(int c);
 /*
 **Cursor
 */
+void	un__select_all(int key);
 void	selecting(void);
 void    up_(t_args **selected);
 void    down_(t_args **selected);
@@ -136,10 +139,21 @@ void    get_args(char **av);
 void    check_flag(char *flag);
 t_type	get_type(char *data);
 
+
 /*
-**reset terminal function
+** Signals handling
 */
+void	init_signal(void);
+void    signal_kill(void);
+void	signal_handler(int no_sig);
+void	suspend(void);
+
+/*
+**init / reset terminal function
+*/
+void	init_terminal(void);
 void    reset_terminal(void);
+void    free_all(void);
 
 /*
 **Counting function

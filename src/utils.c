@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 22:34:12 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/02/08 22:35:24 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/02/10 06:58:16 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,11 @@ static t_direction    direction_(long key)
 	dir = UNK_dir;
 	if (key == UP_KEY)
 		dir = UP_dir;
-	if (key == DOWN_KEY)
+	else if (key == DOWN_KEY)
 		dir = DOWN_dir;
-	if (key == LEFT_KEY)
+	else if (key == LEFT_KEY)
 		dir = LEFT_dir;
-	if (key == RIGHT_KEY)
+	else if (key == RIGHT_KEY)
 		dir = RIGHT_dir;
 	return (dir);
 }
@@ -97,13 +97,14 @@ void    ft_select_loop(void)
 		if (key == ENTER_KEY)
 			return ;
 		else if (key == SPACE_KEY)
-			selecting();    //breaking;
-		/*else if (key == ESC_KEY)
-			signal_kill(); //signals handeling
+			selecting();
 		else if (key == STAR_KEY || key == DLT_ALL_KEY)
-			select_all_args(key); // select all or unselect all;
+			un__select_all(key);
+		else if (key == ESC_KEY)
+			signal_kill();
 		else if (key == BSP_KEY || key == DEL_KEY)
-			delete_item_arg();  // deleting;
+			delete_item();
+		/*
 		else if (key == OPEN_KEY || key == BACK_KEY)
 			browse(key); // open and back ;
 			*/
