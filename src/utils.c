@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 22:34:12 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/02/10 06:58:16 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/02/10 08:18:33 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,10 +104,8 @@ void    ft_select_loop(void)
 			signal_kill();
 		else if (key == BSP_KEY || key == DEL_KEY)
 			delete_item();
-		/*
 		else if (key == OPEN_KEY || key == BACK_KEY)
-			browse(key); // open and back ;
-			*/
+			browse(key);
 		continue_(direction_(key)); // Arrows;
 	}
 }

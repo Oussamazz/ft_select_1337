@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 09:25:06 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/02/10 07:20:44 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/02/10 08:16:08 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ t_select	g_HEAD;
 ** DLL functions
 */
 void	ft_push_ddl(char *value, int index);
-
+void	delete_item(void);
 /*
 ** Printing Functions
 */
@@ -160,6 +160,11 @@ void    free_all(void);
 */
 size_t      biggest_len_arg(t_args *head);
 int			window_size(int width_height);
-int		count_colomns(void);
+int			count_colomns(void);
+
+/*
+**Browsing
+*/
+void    browse(int key);
 
 # endif

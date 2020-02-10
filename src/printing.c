@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 21:16:37 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/02/10 05:41:56 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/02/10 08:30:35 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ static void		print_list(t_args *head)
 		{
 			if (head == (*g_HEAD.active_arg))
 			{
-
 				if (g_HEAD.real_mode)
 					ft_putstr_fd(INTENSTY, g_HEAD.glb_fd);
 				else
@@ -80,12 +79,18 @@ void			ft_show(void)
 
 	biggest_arg = biggest_len_arg(g_HEAD.args);
 	if ((biggest_arg) > window_size(1))
+	{
+		tputs(tgetstr("cl", NULL), 1, ft_putchar_term);
 		return (ft_putendl_fd("Window size is too small! [W]", g_HEAD.glb_fd));
+	}
 	tputs(tgetstr("cl", NULL), 1, ft_putchar_term);
 	g_HEAD.colomns = count_colomns();
 	g_HEAD.rows = g_HEAD.argc / g_HEAD.colomns;
 	if (g_HEAD.rows > window_size(0))
+	{
+		tputs(tgetstr("cl", NULL), 1, ft_putchar_term);
 		return (ft_putendl_fd("Window size is too small! [H]", g_HEAD.glb_fd));
+	}
 	if (g_HEAD.argc % g_HEAD.colomns)
 		g_HEAD.rows++;
 	print_list(g_HEAD.args);
