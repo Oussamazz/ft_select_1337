@@ -6,7 +6,7 @@
 #    By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/23 20:13:16 by oelazzou          #+#    #+#              #
-#    Updated: 2020/02/16 00:04:30 by oelazzou         ###   ########.fr        #
+#    Updated: 2020/02/16 05:50:09 by oelazzou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ SRC_NAME =  arguments.c \
 			signals.c \
 			signal_handler.c \
 			utils.c \
-			utils2.c \
+			arrows.c \
 			free_all.c \
 			browsing.c \
 			check_access.c \

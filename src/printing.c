@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 21:16:37 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/02/16 03:36:11 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/02/16 22:52:08 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void		print_list(int rows, int colomns)
 				ft_putstr_fd(UNDERLINED, g_HEAD.glb_fd);
 			if (head->is_on)
 				ft_putstr_fd(REVERSE_VIDEO_COLOR, g_HEAD.glb_fd);
-			ft_putnbr_fd(head->index, g_HEAD.glb_fd);
+			//ft_putnbr_fd(head->index, g_HEAD.glb_fd);
 			put_value_with_color(head);
 			len  = ft_strlen(head->value);
 			while (len++ <= biggest_len_arg())
@@ -117,5 +117,5 @@ void			ft_show(void)
 	if (g_HEAD.argc % colomns)
 		rows++;
 	print_list(rows, colomns);
-	printf("argc: %d\n clomns: %d\n rows: %d\n", g_HEAD.argc, colomns, rows);
+	//printf("argc: %d\nclomns: %d\nrows: %d\n", g_HEAD.argc, colomns, rows);
 }

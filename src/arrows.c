@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils2.c                                           :+:      :+:    :+:   */
+/*   arrows.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 21:21:54 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/02/16 03:49:47 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/02/16 22:48:57 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,20 +53,17 @@ void	up_(void)
 {
 	t_args 	*node;
 	t_args 	*first;
-	int		i;
 	int		index;
-	int		incr;
 	int		no_cls;
 
 	no_cls = count_colomns();
 	node = *g_HEAD.active_arg;
 	first = node;
 	index = node->index;
-	incr = g_HEAD.argc - (g_HEAD.argc % no_cls);
 	if (index - no_cls < 0)
 		return (ft_putstr_fd("\a", 2));
-	i = -1;
-	while (++i + 1 < no_cls)
+	index = -1;
+	while (++index + 1 < no_cls)
 		node = node->prev;
 	g_HEAD.active_arg = &node->prev;
 }
@@ -82,20 +79,8 @@ void	down_(void)
 	node = *g_HEAD.active_arg;
 	index = node->index;
 	first = node;
-	/*if (index + no_cls >= g_HEAD.argc)
-	{
-		while (node)
-		{
-			if (node->index == index % no_cls)
-			{
-				g_HEAD.active_arg = &node;
-				return ;	
-			}
-			if (node->next == first)
-				break ;
-			node = node->next;
-		}
-	}*/
+	if (index + no_cls >= g_HEAD.argc)
+		return (ft_putstr_fd("\a", 2));
 	no_cls = -1;
 	while (++no_cls + 1 < count_colomns())
 		node = node->next;

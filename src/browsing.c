@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 07:53:36 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/02/16 03:40:14 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/02/16 22:12:43 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,8 @@ void    browse(void)
 	if (!check_access(path))
 		return (ft_strdel(&path));
 	free_all();
-	get_items(path);
 	chdir(path);
+	get_items(path);
 	ft_strdel(&path);
 }
 
@@ -122,7 +122,8 @@ void    browse_back(void)
 	if (path == NULL)
 		return ;
 	free_all();
-	get_items(path);
 	chdir(path);
+	get_items(path);
 	ft_strdel(&path);
+	ft_putstr_fd(DEFAULT_COLOR, g_HEAD.glb_fd);
 }

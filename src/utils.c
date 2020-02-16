@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 22:34:12 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/02/16 03:11:45 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/02/16 22:05:33 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,16 +84,12 @@ static void	continue_(t_direction dir)
 
 void    ft_select_loop(void)
 {
-	t_args		*active;
 	long		key;
 	struct stat sb;
 
-	active = NULL;
 	while (true)
 	{
-		active = *g_HEAD.active_arg;
-		//ft_memset(&sb, 0, sizeof(stat));
-		stat(active->value, &sb);
+		stat((*g_HEAD.active_arg)->value, &sb);
 		ft_show();
 		key = 0;
 		read(0, &key, 6);
@@ -113,6 +109,5 @@ void    ft_select_loop(void)
 			browse_back();
 		else
 			continue_(direction_(key));
-		key = 0;
 	}
 }
