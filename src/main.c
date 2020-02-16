@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 13:28:25 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/02/11 00:44:17 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/02/15 23:51:49 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,15 +64,20 @@ int				main(int ac, char **av, char **env)
 {
 	if (ac < 2 || (ac == 2 && av[1][0] == '-'))
 		error("args");
-	ft_memset(&g_HEAD, 0, sizeof(t_select));
-	if (av[1][0] == '-' && av[1][1] != '\0')
-		check_flag(av[1]);
+	//ft_memset(&g_HEAD, 0, sizeof(t_select));
 	init_terminal();
 	init_signal();
-	get_args(av[1][0] == '-' ? av = av + 2 : av + 1);
+	if (av[1][0] == '-' && av[1][1] != '\0')
+		check_flag(av[1]);
+	if (av[1][0] == '-')
+		get_args(av + 2);
+	else
+		get_args(av + 1);
 	ft_select_loop();
 	reset_terminal();
+	print_selected_items();
 	free_all();
 	close(g_HEAD.glb_fd);
+	//ft_memset(&g_HEAD, 0, sizeof(t_select));
 	return (0);
 }

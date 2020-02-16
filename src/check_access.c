@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_treestrdel.c                                    :+:      :+:    :+:   */
+/*   check_access.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/01/13 16:53:06 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/02/11 22:00:41 by oelazzou         ###   ########.fr       */
+/*   Created: 2020/02/15 23:55:38 by oelazzou          #+#    #+#             */
+/*   Updated: 2020/02/16 03:15:18 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_select.h"
 
-void	ft_treestrdel(char **str1, char **str2, char **str3)
+int check_access(char *path)
 {
-	if (str1)
-		ft_strdel(str1);
-	if (str2)
-		ft_strdel(str2);
-	if (str3)
-		ft_strdel(str3);
+    if (access(path, R_OK) == 0)
+        return (1);
+    return (0);
 }
-

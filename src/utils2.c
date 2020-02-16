@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 21:21:54 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/02/10 06:55:23 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/02/16 03:49:47 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	selecting(void)
 	t_args *on;
 
 	on = *g_HEAD.active_arg;
-	on->is_on = !(on)->is_on;
+	(*g_HEAD.active_arg)->is_on = !(on)->is_on;
 	if (on->is_on == true)
 	{
 		g_HEAD.selected_counter++;
@@ -49,48 +49,40 @@ void	selecting(void)
 	return ;
 }
 
-void	up_(t_args **selected)
+void	up_(void)
 {
-	t_args *node;
+	t_args 	*node;
+	t_args 	*first;
 	int		i;
 	int		index;
 	int		incr;
-	int no_cls;
+	int		no_cls;
 
 	no_cls = count_colomns();
-	node = *selected;
+	node = *g_HEAD.active_arg;
+	first = node;
 	index = node->index;
 	incr = g_HEAD.argc - (g_HEAD.argc % no_cls);
-	i = -1;
-	if (index + incr < g_HEAD.argc)
-	{
-		while (node)
-		{
-			if (node->index == incr + index)
-			{
-				g_HEAD.active_arg = &node;
-				return ;
-			}
-			node = node->next;
-		}
-	}
 	if (index - no_cls < 0)
 		return (ft_putstr_fd("\a", 2));
-	while (++i < no_cls)
+	i = -1;
+	while (++i + 1 < no_cls)
 		node = node->prev;
-	g_HEAD.active_arg = &node;
+	g_HEAD.active_arg = &node->prev;
 }
 
-void	down_(t_args **selected)
+void	down_(void)
 {
-	t_args *node;
-	int no_cls;
-	int index;
+	t_args	*node;
+	t_args	*first;
+	int		no_cls;
+	int		index;
 
 	no_cls = count_colomns();
-	node = *selected;
+	node = *g_HEAD.active_arg;
 	index = node->index;
-	if (index + no_cls >= g_HEAD.argc)
+	first = node;
+	/*if (index + no_cls >= g_HEAD.argc)
 	{
 		while (node)
 		{
@@ -99,11 +91,13 @@ void	down_(t_args **selected)
 				g_HEAD.active_arg = &node;
 				return ;	
 			}
+			if (node->next == first)
+				break ;
 			node = node->next;
 		}
-	}
+	}*/
 	no_cls = -1;
-	while (++no_cls < count_colomns())
+	while (++no_cls + 1 < count_colomns())
 		node = node->next;
-	g_HEAD.active_arg = &node;
+	g_HEAD.active_arg = &node->next;
 }

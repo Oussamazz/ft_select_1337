@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 19:45:55 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/02/09 21:02:28 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/02/16 02:55:29 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,10 @@ int		count_colomns(void)
 {
 	int cols;
 
-	cols = window_size(1) / (biggest_len_arg(g_HEAD.args) + 1);
-	if (!cols)
-		cols = 1;
-	if ((biggest_len_arg(g_HEAD.args) + 1) * g_HEAD.argc < window_size(1))
-		cols = g_HEAD.argc;
+	cols = window_size(1) / (biggest_len_arg() + 1);
+	NO_ZERO(cols);
+	if ((biggest_len_arg() + 1) * g_HEAD.argc < window_size(1))
+		return (g_HEAD.argc);
 	return (cols);
 }
 
@@ -34,7 +33,7 @@ int		window_size(int width_height)
 	return ((int)w_size.ws_row);
 }
 
-size_t      biggest_len_arg(t_args *head)
+size_t      biggest_len_arg(void)
 {
 	t_args	*first;
 	t_args	*curr;

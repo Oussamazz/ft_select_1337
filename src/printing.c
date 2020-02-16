@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 21:16:37 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/02/11 00:34:13 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/02/16 03:36:11 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,30 @@
 int			ft_putchar_term(int c)
 {
 	return (write(g_HEAD.glb_fd, &c, 1));
+}
+
+void			print_selected_items(void)
+{
+	int 	i;
+	t_args *curr;
+	t_args *first;
+
+	first = g_HEAD.args;
+	curr = g_HEAD.args;
+	i = 0;
+	while (curr)
+	{
+		if (curr->is_on)
+		{
+			ft_putstr_fd(curr->value, 1);
+			i++;
+			if (i < g_HEAD.selected_counter)
+				ft_putchar_fd(' ', 1);
+		}
+		if (curr->next == first)
+			break ;
+		curr = curr->next;
+	}
 }
 
 static void		put_value_with_color(t_args *head)
@@ -36,33 +60,31 @@ static void		put_value_with_color(t_args *head)
 	ft_putstr_fd(DEFAULT_COLOR, fd);
 }
 
-static void		print_list(t_args *head)
+void		print_list(int rows, int colomns)
 {
 	t_args *first;
+	t_args *head;
 	int i;
 	int j;
 	int len;
 
 	len = 0;
 	i = -1;
-	first = head;
-	while (++i < g_HEAD.rows)
+	head = g_HEAD.args;
+	first = g_HEAD.args;
+	while (++i < rows)
 	{
 		j = -1;
-		while (++j < g_HEAD.colomns)
+		while (++j < colomns)
 		{
 			if (head == (*g_HEAD.active_arg))
-			{
-				if (g_HEAD.real_mode)
-					ft_putstr_fd(INTENSTY, g_HEAD.glb_fd);
-				else
-					ft_putstr_fd(UNDERLINED, g_HEAD.glb_fd);
-			}
+				ft_putstr_fd(UNDERLINED, g_HEAD.glb_fd);
 			if (head->is_on)
 				ft_putstr_fd(REVERSE_VIDEO_COLOR, g_HEAD.glb_fd);
+			ft_putnbr_fd(head->index, g_HEAD.glb_fd);
 			put_value_with_color(head);
 			len  = ft_strlen(head->value);
-			while (len++ <= biggest_len_arg(g_HEAD.args))
+			while (len++ <= biggest_len_arg())
 				ft_putchar_fd(' ', g_HEAD.glb_fd);
 			if (head->next == first)
 				break ;
@@ -74,24 +96,26 @@ static void		print_list(t_args *head)
 
 void			ft_show(void)
 {
+	int rows;
+	int	colomns;
 	int biggest_arg;
 
-	biggest_arg = biggest_len_arg(g_HEAD.args);
+	biggest_arg = biggest_len_arg();
 	if ((biggest_arg) > window_size(1))
 	{
 		tputs(tgetstr("cl", NULL), 1, ft_putchar_term);
 		return (ft_putendl_fd("Window size is too small!", g_HEAD.glb_fd));
 	}
 	tputs(tgetstr("cl", NULL), 1, ft_putchar_term);
-	g_HEAD.colomns = count_colomns();
-	if (g_HEAD.colomns != 0)
-		g_HEAD.rows = g_HEAD.argc / g_HEAD.colomns;
-	if (g_HEAD.rows > window_size(0) - 2)
+	colomns = count_colomns();
+	rows = g_HEAD.argc / colomns;
+	if (rows > window_size(0) - 2)
 	{
 		tputs(tgetstr("cl", NULL), 1, ft_putchar_term);
 		return (ft_putendl_fd("Window size is too small!", g_HEAD.glb_fd));
 	}
-	if (g_HEAD.argc % g_HEAD.colomns)
-		g_HEAD.rows++;
-	print_list(g_HEAD.args);
+	if (g_HEAD.argc % colomns)
+		rows++;
+	print_list(rows, colomns);
+	printf("argc: %d\n clomns: %d\n rows: %d\n", g_HEAD.argc, colomns, rows);
 }

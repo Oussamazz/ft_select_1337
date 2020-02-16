@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 21:40:34 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/02/10 07:35:34 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/02/15 23:50:53 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void    check_flag(char *flag)
             g_HEAD.real_mode = false;
     }
     else
-       error("args");
+        return (error("args"));
 }
 
 void    get_args(char **av)

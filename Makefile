@@ -6,7 +6,7 @@
 #    By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/23 20:13:16 by oelazzou          #+#    #+#              #
-#    Updated: 2020/02/10 21:51:04 by oelazzou         ###   ########.fr        #
+#    Updated: 2020/02/16 00:04:30 by oelazzou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ LIBFT_PATH = ./libft/
 INC = -I ./includes/ -I $(LIBFT_PATH)
 SRC_DIR = ./src/
 OBJ_DIR = ./obj/
-FLAGS = -Wall -Wextra -Werror -ltermcap
+FLAGS = -g -Wall -Wextra -Werror -ltermcap
 SRC_NAME =  arguments.c \
 			counting.c \
 			error.c \
@@ -28,6 +28,7 @@ SRC_NAME =  arguments.c \
 			utils2.c \
 			free_all.c \
 			browsing.c \
+			check_access.c \
 			
 SRCS = $(addprefix $(SRC_DIR), $(SRC_NAME))
 OBJS = $(addprefix $(OBJ_DIR), $(SRC_NAME:.c=.o))

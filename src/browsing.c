@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 07:53:36 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/02/11 00:42:26 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/02/16 03:40:14 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static char	*create_path(const char *s1, const char *s2)
 	char	*tmp;
 
 	tmp = NULL;
+	s = NULL;
 	if (s1 && s2)
 	{
 		s = ft_strdup(s1);
@@ -37,60 +38,91 @@ static char	*create_path(const char *s1, const char *s2)
 	return (NULL);
 }
 
-char    *get_prev_dir(char *cwd)
+static  void    get_items(char *path)
 {
-	char	*last_slash;
-	char	*parent;
+	int             counter;
+	struct dirent   *dir;
+	DIR             *dire;
 
-    if (cwd)
-    {
-	    if (!(last_slash = strrchr(cwd, '/')))
-            return (NULL);
-        if (last_slash - cwd == 0)
-            return (ft_strdup("/"));
-	    parent = strndup(cwd, last_slash - cwd);
-	    return (parent);
-    }
-    return (NULL);
+	dire = NULL;
+	dir = NULL;
+	if (!(dire = opendir(path)))
+		return ;
+	counter = 0;
+	while ((dir = readdir(dire)) != NULL)
+	{
+		if (dir->d_name[0] != '.')
+		{
+			ft_push_ddl(dir->d_name, counter);
+	   		counter++;
+		} 
+	}
+	if (!counter)
+		ft_push_ddl("", counter);
+	closedir(dire);
+	g_HEAD.selected_counter = 0;
 }
 
-void    browse(int key)
+char    *get_prev_dir(char *cwd)
 {
-    int             counter;
-    struct stat     sb;
-    DIR             *dir;
-    struct dirent   *folder;
-    char            *active;
-    char            *current;
-    char            *path;
+	char	*slash;
+	char	*ret;
 
-    active = (*g_HEAD.active_arg)->value;
-    if (!(current = getcwd(NULL, PATH_MAX)))
-        return ;
-    if (key == OPEN_KEY)
-        path = create_path(current, active);
-    else
-        path = get_prev_dir(current);
-    if (lstat(path, &sb) == -1)
-        return ;
-    if (!S_ISDIR(sb.st_mode))
-        return (ft_treestrdel(&current, &path, NULL));
-    ft_strdel(&current);
-    if (!(dir = opendir(path)))
-		return (free(path));
-    free_all();
-    counter = 0;
-    while ((folder = readdir(dir)) != NULL)
-    {
-        if (folder->d_name[0] != '.')
-        {
-            ft_push_ddl(folder->d_name, counter);
-            counter++;
-        }
-    }
-    closedir(dir);
-    ft_putstr_fd(path, g_HEAD.glb_fd);
-    if (chdir(path) == -1)
-        return ;
-    ft_strdel(&path);
+	if (cwd)
+	{
+		slash = NULL;
+		ret = NULL;
+		if (!(slash = strrchr(cwd, '/')))
+			return (NULL);
+		if (slash - cwd == 0)
+			return (ft_strdup("/"));
+		ret = ft_strndup(cwd, slash - cwd);
+		return (ret);
+	}
+	return (NULL);
+}
+
+void    browse(void)
+{
+	char            *active;
+	char            *current;
+	char            *path;
+
+	active = NULL;
+	current = NULL;
+	path = NULL;
+	if (!(active = (*g_HEAD.active_arg)->value))
+		return ;
+	if (!(current = getcwd(NULL, PATH_MAX)))
+		return ;
+	path = create_path(current, active);
+	ft_strdel(&current);
+	if (path == NULL)
+		return ;
+	if (!check_access(path))
+		return (ft_strdel(&path));
+	free_all();
+	get_items(path);
+	chdir(path);
+	ft_strdel(&path);
+}
+
+void    browse_back(void)
+{
+	char            *active;
+	char            *current;
+	char            *path;
+
+	if (!(active = (*g_HEAD.active_arg)->value))
+		return ;
+	if (!(current = getcwd(NULL, PATH_MAX)))
+		return ;
+	path = get_prev_dir(current);
+	ft_strdel(&current);
+	if (path == NULL)
+		return ;
+	free_all();
+	get_items(path);
+	chdir(path);
+	ft_strdel(&path);
 }

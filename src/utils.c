@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 22:34:12 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/02/11 00:45:04 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/02/16 03:11:45 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,47 +55,50 @@ t_type		get_type(char *data)
 
 static t_direction    direction_(long key)
 {
-	t_direction dir;
-
-	dir = UNK_dir;
 	if (key == UP_KEY)
-		dir = UP_dir;
+		return (UP_dir);
 	else if (key == DOWN_KEY)
-		dir = DOWN_dir;
+		return (DOWN_dir);
 	else if (key == LEFT_KEY)
-		dir = LEFT_dir;
+		return (LEFT_dir);
 	else if (key == RIGHT_KEY)
-		dir = RIGHT_dir;
-	return (dir);
+		return (RIGHT_dir);
+	return (UNK_dir);
 }
 
-void	continue_(t_direction dir)
+static void	continue_(t_direction dir)
 {
 	t_args *on;
 
 	on = *g_HEAD.active_arg;
 	if (dir == LEFT_dir)
 		g_HEAD.active_arg = &(on->prev);
-	if (dir == RIGHT_dir)
+	else if (dir == RIGHT_dir)
 		g_HEAD.active_arg = &(on->next);
 	else if (dir == UP_dir)
-		up_(g_HEAD.active_arg);
+		up_();
 	else if (dir == DOWN_dir)
-		down_(g_HEAD.active_arg);
+		down_();
 	return ;
 }
 
 void    ft_select_loop(void)
 {
-	long key;
+	t_args		*active;
+	long		key;
+	struct stat sb;
 
-	while (1337)
+	active = NULL;
+	while (true)
 	{
+		active = *g_HEAD.active_arg;
+		//ft_memset(&sb, 0, sizeof(stat));
+		stat(active->value, &sb);
 		ft_show();
 		key = 0;
-		read(2, &key, sizeof(key));
+		read(0, &key, 6);
 		if (key == ENTER_KEY)
-			return ;
+			break ;
 		else if (key == SPACE_KEY)
 			selecting();
 		else if (key == STAR_KEY || key == DLT_ALL_KEY)
@@ -104,9 +107,12 @@ void    ft_select_loop(void)
 			signal_kill();
 		else if (key == BSP_KEY || key == DEL_KEY)
 			delete_item();
-		else if ((key == OPEN_KEY || key == BACK_KEY) && g_HEAD.real_mode)
-			browse(key);
+		else if (key == OPEN_KEY && S_ISDIR(sb.st_mode) && g_HEAD.real_mode)
+			browse();
+		else if (key == BACK_KEY && g_HEAD.real_mode)
+			browse_back();
 		else
-			continue_(direction_(key)); // Arrows;
+			continue_(direction_(key));
+		key = 0;
 	}
 }

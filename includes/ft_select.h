@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 09:25:06 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/02/10 21:50:34 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/02/16 03:12:27 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@
 # define INTENSTY				"\033[0;100m"
 # define UNDERLINED				"\033[4m"
 
+# define Y_KEY					121
+# define N_KEY					110
 # define ENTER_KEY				10
 # define ESC_KEY				27
 # define SPACE_KEY				32
@@ -114,15 +116,16 @@ void	delete_item(void);
 */
 void	ft_show(void);
 void    ft_select_loop(void);
-int    ft_putchar_term(int c);
+int    	ft_putchar_term(int c);
+void	print_selected_items(void);
 
 /*
 **Cursor
 */
 void	un__select_all(int key);
 void	selecting(void);
-void    up_(t_args **selected);
-void    down_(t_args **selected);
+void    up_(void);
+void    down_(void);
 /*
 ** Error Functions
 */
@@ -156,13 +159,19 @@ void    free_all(void);
 /*
 **Counting function
 */
-size_t      biggest_len_arg(t_args *head);
+size_t      biggest_len_arg(void);
 int			window_size(int width_height);
 int			count_colomns(void);
 
 /*
 **Browsing
 */
-void    browse(int key);
+void    browse(void);
+void    browse_back(void);
 
+/*
+** OTHERS
+*/
+void		print_list(int rows, int colomns);
+int 		check_access(char *path);
 # endif
