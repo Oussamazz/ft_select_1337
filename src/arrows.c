@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/01 21:21:54 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/02/16 22:48:57 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/02/16 23:01:43 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	un__select_all(int key)
 
 	first = g_HEAD.args;
 	curr = first;
+	g_HEAD.selected_counter = 0;
 	while (curr)
 	{
 		flag = (key == STAR_KEY ? 1 : 0);

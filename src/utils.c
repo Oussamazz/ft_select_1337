@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 22:34:12 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/02/16 22:05:33 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/02/17 14:32:07 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ static void	continue_(t_direction dir)
 		up_();
 	else if (dir == DOWN_dir)
 		down_();
+	else
+		ft_putstr_fd("\a", 2);
 	return ;
 }
 

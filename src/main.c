@@ -6,13 +6,13 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 13:28:25 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/02/15 23:51:49 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/02/17 14:33:30 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-void		entry_init(char *tty_name)
+void			entry_init(char *tty_name)
 {
 	int		ret;
 	char	entry[1024];
@@ -33,7 +33,23 @@ void		entry_init(char *tty_name)
 	return ;
 }
 
-void		init_signal(void)
+void			sig_continue(void)
+{
+	signal(SIGIOT, signal_handler);
+	signal(SIGEMT, signal_handler);
+	signal(SIGBUS, signal_handler);
+	signal(SIGSYS, signal_handler);
+	signal(SIGURG, signal_handler);
+	signal(SIGIO, signal_handler);
+	signal(SIGXCPU, signal_handler);
+	signal(SIGXFSZ, signal_handler);
+	signal(SIGVTALRM, signal_handler);
+	signal(SIGINFO, signal_handler);
+	signal(SIGPROF, signal_handler);
+	signal(SIGCHLD, SIG_IGN);
+}
+
+void			init_signal(void)
 {
 	signal(SIGWINCH, signal_handler);
 	signal(SIGABRT, signal_handler);
@@ -43,6 +59,19 @@ void		init_signal(void)
 	signal(SIGTSTP, signal_handler);
 	signal(SIGKILL, signal_handler);
 	signal(SIGQUIT, signal_handler);
+	signal(SIGHUP, signal_handler);
+	signal(SIGILL, signal_handler);
+	signal(SIGFPE, signal_handler);
+	signal(SIGSEGV, signal_handler);
+	signal(SIGPIPE, signal_handler);
+	signal(SIGALRM, signal_handler);
+	signal(SIGTERM, signal_handler);
+	signal(SIGUSR1, signal_handler);
+	signal(SIGUSR2, signal_handler);
+	signal(SIGTTIN, signal_handler);
+	signal(SIGTTOU, signal_handler);
+	signal(SIGTRAP, signal_handler);
+	sig_continue();
 }
 
 void			init_terminal(void)
@@ -64,7 +93,6 @@ int				main(int ac, char **av, char **env)
 {
 	if (ac < 2 || (ac == 2 && av[1][0] == '-'))
 		error("args");
-	//ft_memset(&g_HEAD, 0, sizeof(t_select));
 	init_terminal();
 	init_signal();
 	if (av[1][0] == '-' && av[1][1] != '\0')
@@ -78,6 +106,5 @@ int				main(int ac, char **av, char **env)
 	print_selected_items();
 	free_all();
 	close(g_HEAD.glb_fd);
-	//ft_memset(&g_HEAD, 0, sizeof(t_select));
 	return (0);
 }

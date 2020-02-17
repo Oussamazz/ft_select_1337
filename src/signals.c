@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 17:15:41 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/02/16 21:56:29 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/02/17 14:11:15 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,6 @@ void	signal_handler(int no_sig)
 	}
 	else if (no_sig == SIGTSTP)
 		suspend();
-	else if (no_sig == SIGWINCH || no_sig == SIGCHLD)
+	else if (no_sig == SIGWINCH)
 		ft_show();
 }
