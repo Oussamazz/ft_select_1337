@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 13:28:25 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/02/17 14:33:30 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/02/19 00:04:57 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void			entry_init(char *tty_name)
 	int		ret;
 	char	entry[1024];
 
-	if (!isatty(g_HEAD.glb_fd))
+	if (!isatty(g_head.glb_fd))
 	{
 		ft_putendl_fd("Error: file descriptor is not valid.", 2);
 		exit(EXIT_FAILURE);
@@ -76,15 +76,15 @@ void			init_signal(void)
 
 void			init_terminal(void)
 {
-	if (!(g_HEAD.term_value = getenv("TERM")))
+	if (!(g_head.term_value = getenv("TERM")))
 		return (error("TERM"));
-	if ((g_HEAD.glb_fd = open("/dev/tty", O_RDWR)) == -1)
+	if ((g_head.glb_fd = open("/dev/tty", O_RDWR)) == -1)
 		return (error("fd"));
-	entry_init(g_HEAD.term_value);
-	tcgetattr(g_HEAD.glb_fd, &g_HEAD.old_attribute);
-	tcgetattr(g_HEAD.glb_fd, &g_HEAD.attribute);
-	g_HEAD.attribute.c_lflag &= ~(ICANON | ECHO);
-	tcsetattr(g_HEAD.glb_fd, 0, &g_HEAD.attribute);
+	entry_init(g_head.term_value);
+	tcgetattr(g_head.glb_fd, &g_head.old_attribute);
+	tcgetattr(g_head.glb_fd, &g_head.attribute);
+	g_head.attribute.c_lflag &= ~(ICANON | ECHO);
+	tcsetattr(g_head.glb_fd, 0, &g_head.attribute);
 	tputs(tgetstr("ti", NULL), 1, ft_putchar_term);
 	tputs(tgetstr("vi", NULL), 1, ft_putchar_term);
 }
@@ -105,6 +105,6 @@ int				main(int ac, char **av, char **env)
 	reset_terminal();
 	print_selected_items();
 	free_all();
-	close(g_HEAD.glb_fd);
+	close(g_head.glb_fd);
 	return (0);
 }

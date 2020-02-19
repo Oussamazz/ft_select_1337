@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/08 17:15:41 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/02/17 14:11:15 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/02/18 23:33:02 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	reset_terminal(void)
 {
-	tcsetattr(g_HEAD.glb_fd, TCSANOW, &g_HEAD.old_attribute);
+	tcsetattr(g_head.glb_fd, TCSANOW, &g_head.old_attribute);
 	tputs(tgetstr("te", NULL), 1, ft_putchar_term);
 	tputs(tgetstr("ve", NULL), 1, ft_putchar_term);
 }
@@ -26,7 +26,7 @@ void	suspend(void)
 	ioctl(STDERR_FILENO, TIOCSTI, "\x1A");
 }
 
-void    signal_kill(void)
+void	signal_kill(void)
 {
 	reset_terminal();
 	free_all();
@@ -41,8 +41,8 @@ void	signal_handler(int no_sig)
 		no_sig == SIGSEGV || no_sig == SIGPIPE || no_sig == SIGALRM ||
 		no_sig == SIGTERM || no_sig == SIGUSR1 || no_sig == SIGUSR2 ||
 		no_sig == SIGTTIN || no_sig == SIGTTOU || no_sig == SIGTRAP
-		|| no_sig == SIGIOT || no_sig == SIGEMT || no_sig == SIGBUS || 
-		no_sig == SIGSYS || no_sig == SIGURG || no_sig == SIGIO || 
+		|| no_sig == SIGIOT || no_sig == SIGEMT || no_sig == SIGBUS ||
+		no_sig == SIGSYS || no_sig == SIGURG || no_sig == SIGIO ||
 		no_sig == SIGXCPU || no_sig == SIGXFSZ || no_sig == SIGVTALRM ||
 		no_sig == SIGPROF || no_sig == SIGINFO)
 		signal_kill();

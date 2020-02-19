@@ -6,13 +6,13 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 07:53:36 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/02/17 14:27:56 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/02/19 00:54:36 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
 
-static char	*create_path(const char *s1, const char *s2)
+static char		*create_path(const char *s1, const char *s2)
 {
 	int		strlen_s1;
 	char	*s;
@@ -38,11 +38,11 @@ static char	*create_path(const char *s1, const char *s2)
 	return (NULL);
 }
 
-static  void    get_items(char *path)
+static void		get_items(char *path)
 {
-	int             counter;
-	struct dirent   *dir;
-	DIR             *dire;
+	int				counter;
+	struct dirent	*dir;
+	DIR				*dire;
 
 	dire = NULL;
 	dir = NULL;
@@ -54,16 +54,16 @@ static  void    get_items(char *path)
 		if (dir->d_name[0] != '.')
 		{
 			ft_push_ddl(dir->d_name, counter);
-	   		counter++;
-		} 
+			counter++;
+		}
 	}
 	if (!counter)
 		ft_push_ddl("", counter);
 	closedir(dire);
-	g_HEAD.selected_counter = 0;
+	g_head.selected_counter = 0;
 }
 
-char    *get_prev_dir(char *cwd)
+char			*get_prev_dir(char *cwd)
 {
 	char	*slash;
 	char	*ret;
@@ -82,13 +82,13 @@ char    *get_prev_dir(char *cwd)
 	return (NULL);
 }
 
-void    browse(void)
+void			browse(void)
 {
-	char            *active;
-	char            *current;
-	char            *path;
+	char	*active;
+	char	*current;
+	char	*path;
 
-	if (!(active = (*g_HEAD.active_arg)->value))
+	if (!(active = (*g_head.active_arg)->value))
 		return ;
 	if (!(current = getcwd(NULL, PATH_MAX)))
 		return ;
@@ -102,18 +102,19 @@ void    browse(void)
 		return (ft_strdel(&path));
 	}
 	free_all();
+
 	chdir(path);
 	get_items(path);
 	ft_strdel(&path);
 }
 
-void    browse_back(void)
+void			browse_back(void)
 {
-	char            *active;
-	char            *current;
-	char            *path;
+	char	*active;
+	char	*current;
+	char	*path;
 
-	if (!(active = (*g_HEAD.active_arg)->value))
+	if (!(active = (*g_head.active_arg)->value))
 		return ;
 	if (!(current = getcwd(NULL, PATH_MAX)))
 		return ;
@@ -125,5 +126,5 @@ void    browse_back(void)
 	chdir(path);
 	get_items(path);
 	ft_strdel(&path);
-	ft_putstr_fd(DEFAULT_COLOR, g_HEAD.glb_fd);
+	ft_putstr_fd(DEFAULT_COLOR, g_head.glb_fd);
 }

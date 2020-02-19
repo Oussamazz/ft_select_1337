@@ -6,12 +6,11 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 22:34:12 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/02/17 14:32:07 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/02/19 01:06:02 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_select.h"
-
 
 static t_type		check_permission(char *path)
 {
@@ -26,7 +25,7 @@ static t_type		check_permission(char *path)
 	return (UNK_FILE);
 }
 
-t_type		get_type(char *data)
+t_type				get_type(char *data)
 {
 	char	*name;
 	t_type	ret;
@@ -52,8 +51,7 @@ t_type		get_type(char *data)
 	return (UNK_FILE);
 }
 
-
-static t_direction    direction_(long key)
+static t_direction	direction_(long key)
 {
 	if (key == UP_KEY)
 		return (UP_dir);
@@ -66,15 +64,15 @@ static t_direction    direction_(long key)
 	return (UNK_dir);
 }
 
-static void	continue_(t_direction dir)
+static void			continue_(t_direction dir)
 {
 	t_args *on;
 
-	on = *g_HEAD.active_arg;
+	on = *g_head.active_arg;
 	if (dir == LEFT_dir)
-		g_HEAD.active_arg = &(on->prev);
+		g_head.active_arg = &(on->prev);
 	else if (dir == RIGHT_dir)
-		g_HEAD.active_arg = &(on->next);
+		g_head.active_arg = &(on->next);
 	else if (dir == UP_dir)
 		up_();
 	else if (dir == DOWN_dir)
@@ -84,30 +82,25 @@ static void	continue_(t_direction dir)
 	return ;
 }
 
-void    ft_select_loop(void)
+void				ft_select_loop(void)
 {
 	long		key;
 	struct stat sb;
 
 	while (true)
 	{
-		stat((*g_HEAD.active_arg)->value, &sb);
+		stat((*g_head.active_arg)->value, &sb);
 		ft_show();
 		key = 0;
 		read(0, &key, 6);
 		if (key == ENTER_KEY)
 			break ;
-		else if (key == SPACE_KEY)
-			selecting();
-		else if (key == STAR_KEY || key == DLT_ALL_KEY)
-			un__select_all(key);
-		else if (key == ESC_KEY)
-			signal_kill();
-		else if (key == BSP_KEY || key == DEL_KEY)
-			delete_item();
-		else if (key == OPEN_KEY && S_ISDIR(sb.st_mode) && g_HEAD.real_mode)
+		else if (key == SPACE_KEY || key == STAR_KEY || key == DLT_ALL_KEY ||
+			key == ESC_KEY || key == BSP_KEY)
+			ft_select_loop_(key);
+		else if (key == OPEN_KEY && S_ISDIR(sb.st_mode) && g_head.real_mode)
 			browse();
-		else if (key == BACK_KEY && g_HEAD.real_mode)
+		else if (key == BACK_KEY && g_head.real_mode)
 			browse_back();
 		else
 			continue_(direction_(key));

@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 09:25:06 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/02/16 03:12:27 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/02/19 00:54:06 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,93 +85,93 @@ typedef	struct		s_args
 	char			*value;
 	bool			is_on;
 	t_type			type;
-	struct 	s_args 	*next;
-	struct 	s_args	*prev;
+	struct s_args	*next;
+	struct s_args	*prev;
 }					t_args;
 
-typedef	struct	s_select
+typedef	struct		s_select
 {
 	t_args			*args;
 	t_args			**active_arg;
-	int				colomns;
-	int				rows;
 	int				glb_fd;
 	int				argc;
 	bool			real_mode;
 	char			*term_value;
+	//char			*cwd;
 	unsigned int	selected_counter;
-	struct	termios old_attribute;
-	struct	termios	attribute;
-}				t_select;
+	struct termios	old_attribute;
+	struct termios	attribute;
+}					t_select;
 
-t_select	g_HEAD;
+t_select			g_head;
 
 /*
 ** DLL functions
 */
-void	ft_push_ddl(char *value, int index);
-void	delete_item(void);
+void				ft_push_ddl(char *value, int index);
+void				delete_item(void);
 /*
 ** Printing Functions
 */
-void	ft_show(void);
-void    ft_select_loop(void);
-int    	ft_putchar_term(int c);
-void	print_selected_items(void);
+void				ft_show(void);
+void				ft_select_loop(void);
+int					ft_putchar_term(int c);
+void				print_selected_items(void);
 
 /*
 **Cursor
 */
-void	un__select_all(int key);
-void	selecting(void);
-void    up_(void);
-void    down_(void);
+void				un__select_all(int key);
+void				selecting(void);
+void				up_(void);
+void				down_(void);
 /*
 ** Error Functions
 */
-void	error(char *error_type);
-void	error_usage(void);
-void	env_TERM(void);
+void				error(char *error_type);
+void				error_usage(void);
+void				env_term(void);
 
 /*
 ** Arguments Manipulation
 */
-void    get_args(char **av);
-void    check_flag(char *flag);
-t_type	get_type(char *data);
-
+void				get_args(char **av);
+void				check_flag(char *flag);
+t_type				get_type(char *data);
 
 /*
 ** Signals handling
 */
-void	init_signal(void);
-void    signal_kill(void);
-void	signal_handler(int no_sig);
-void	suspend(void);
+void				init_signal(void);
+void				signal_kill(void);
+void				signal_handler(int no_sig);
+void				suspend(void);
 
 /*
 **init / reset terminal function
 */
-void	init_terminal(void);
-void    reset_terminal(void);
-void    free_all(void);
+void				init_terminal(void);
+void				reset_terminal(void);
+void				free_all(void);
 
 /*
 **Counting function
 */
-size_t      biggest_len_arg(void);
-int			window_size(int width_height);
-int			count_colomns(void);
+size_t				biggest_len_arg(void);
+int					window_size(int width_height);
+int					count_colomns(void);
 
 /*
 **Browsing
 */
-void    browse(void);
-void    browse_back(void);
+void				browse(void);
+void				browse_back(void);
 
 /*
 ** OTHERS
 */
-void		print_list(int rows, int colomns);
-int 		check_access(char *path);
-# endif
+void				print_list(int rows, int colomns, t_args *head,
+	t_args *first);
+int					check_access(char *path);
+void				ft_select_loop_(int key);
+#endif
