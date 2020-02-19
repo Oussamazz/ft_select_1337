@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 07:53:36 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/02/19 01:35:58 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/02/19 01:38:31 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char			*get_prev_dir(char *cwd)
 	{
 		slash = NULL;
 		ret = NULL;
-		if (!(slash = strrchr(cwd, '/')))
+		if (!(slash = ft_strrchr(cwd, '/')))
 			return (NULL);
 		if (slash - cwd == 0)
 			return (ft_strdup("/"));

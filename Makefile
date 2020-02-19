@@ -6,7 +6,7 @@
 #    By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/23 20:13:16 by oelazzou          #+#    #+#              #
-#    Updated: 2020/02/19 01:08:41 by oelazzou         ###   ########.fr        #
+#    Updated: 2020/02/19 02:08:51 by oelazzou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ LIBFT_PATH = ./libft/
 INC = -I ./includes/ -I $(LIBFT_PATH)
 SRC_DIR = ./src/
 OBJ_DIR = ./obj/
-FLAGS = -g -Wall -Wextra -Werror -ltermcap
+FLAGS = -Wall -Wextra -Werror -ltermcap
 SRC_NAME =  arguments.c \
 			counting.c \
 			error.c \
@@ -37,11 +37,11 @@ all: $(NAME)
 $(NAME): $(OBJS) $(SRCS)
 	@make -s -C $(LIBFT_PATH)
 	@echo "\033[92m--> libft.a CREATED! <--"
-	@gcc -g $(FLAGS) $(INC) $(OBJS) -L $(LIBFT_PATH) -lft -o $(NAME)
+	@gcc $(FLAGS) $(INC) $(OBJS) -L $(LIBFT_PATH) -lft -o $(NAME)
 	@echo "\033[1m\033[35m--> ft_select CREATED! <--\033[0m"
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	@mkdir -p obj
-	@gcc -g -c $(INC) $^ -o $@
+	@gcc -c $(INC) $^ -o $@
 	@echo "\033[92m--> Object file Created <--"
 clean:
 	@echo "\033[1m\033[93m-> cleaning...\033[0m"

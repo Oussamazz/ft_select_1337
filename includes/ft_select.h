@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 09:25:06 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/02/19 01:12:22 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/02/19 02:01:06 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,7 @@ void				down_(void);
 ** Error Functions
 */
 void				error(char *error_type);
-void				error_usage(void);
+void				error_usage(int ex);
 void				env_term(void);
 
 /*

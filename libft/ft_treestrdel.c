@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/13 16:53:06 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/02/11 22:00:41 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/02/19 02:09:46 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,3 @@ void	ft_treestrdel(char **str1, char **str2, char **str3)
 	if (str3)
 		ft_strdel(str3);
 }
-

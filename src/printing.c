@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/07 21:16:37 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/02/18 23:51:07 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/02/19 01:48:11 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void		ft_show(void)
 	tputs(tgetstr("cl", NULL), 1, ft_putchar_term);
 	colomns = count_colomns();
 	rows = g_head.argc / colomns;
-	if (rows > window_size(0) - 2)
+	if (rows + 2 > window_size(0))
 	{
 		tputs(tgetstr("cl", NULL), 1, ft_putchar_term);
 		return (ft_putendl_fd("Window size is too small!", g_head.glb_fd));

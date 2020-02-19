@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 21:40:34 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/02/18 23:12:31 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/02/19 02:11:23 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	check_flag(char *flag)
 	key = 0;
 	if (!ft_strcmp(flag, "-R"))
 	{
-		ft_putendl_fd("Are you sure you want to continue in Real Mode y/n?", 1);
+		ft_putendl_fd("Are you sure you want to continue in Real Mode y/n?",
+			g_head.glb_fd);
 		read(0, &key, 4);
 		if ((char)key == Y_KEY)
 			g_head.real_mode = true;
@@ -27,7 +28,11 @@ void	check_flag(char *flag)
 			g_head.real_mode = false;
 	}
 	else
-		return (error("args"));
+	{
+		error_usage(0);
+		reset_terminal();
+		exit(1);
+	}
 }
 
 void	get_args(char **av)
