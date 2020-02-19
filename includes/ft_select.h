@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/30 09:25:06 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/02/19 00:54:06 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/02/19 01:12:22 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ typedef	struct		s_select
 	int				argc;
 	bool			real_mode;
 	char			*term_value;
-	//char			*cwd;
+	char			*cwd;
 	unsigned int	selected_counter;
 	struct termios	old_attribute;
 	struct termios	attribute;

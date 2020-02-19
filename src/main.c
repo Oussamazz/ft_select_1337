@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/31 13:28:25 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/02/19 00:04:57 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/02/19 01:28:17 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,11 @@ int				main(int ac, char **av, char **env)
 		get_args(av + 2);
 	else
 		get_args(av + 1);
+	g_head.cwd = getcwd(NULL, PATH_MAX);
 	ft_select_loop();
 	reset_terminal();
 	print_selected_items();
+	ft_strdel(&g_head.cwd);
 	free_all();
 	close(g_head.glb_fd);
 	return (0);

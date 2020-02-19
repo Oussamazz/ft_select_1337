@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 07:53:36 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/02/19 00:54:36 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/02/19 01:35:58 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ void			browse(void)
 		return (ft_strdel(&path));
 	}
 	free_all();
-
 	chdir(path);
 	get_items(path);
 	ft_strdel(&path);
@@ -117,7 +116,12 @@ void			browse_back(void)
 	if (!(active = (*g_head.active_arg)->value))
 		return ;
 	if (!(current = getcwd(NULL, PATH_MAX)))
+	{
+		free_all();
+		chdir(g_head.cwd);
+		get_items(g_head.cwd);
 		return ;
+	}
 	path = get_prev_dir(current);
 	ft_strdel(&current);
 	if (path == NULL)
